@@ -1,0 +1,37 @@
+module Main where
+
+import qualified AoC.Day01
+import System.Environment (getArgs)
+import qualified Utils.Utils as Utils
+
+parseDay :: String -> String -> String
+parseDay suffix ('2' : '4' : a : b : _) = "Y2024_" ++ parseDay suffix [a, b]
+parseDay suffix (a : b : _) = "Day" ++ [a, b] ++ suffix ++ ".txt"
+parseDay _ _ = error "Invalid day format."
+
+parseArgs :: String -> (String, String)
+parseArgs ('e' : day) = (day, "input/" ++ parseDay "_Example" day)
+parseArgs day = (day, "input/" ++ parseDay "" day)
+
+getDaySolution :: String -> Utils.Solution
+getDaySolution "01" = AoC.Day01.solution
+getDaySolution _ = error "No solution-implementation found for the given day."
+
+printSolution :: String -> [String] -> IO ()
+printSolution day inputLines = do
+  let (part1, part2) = getDaySolution day
+  putStrLn $ "Part 1: " ++ show (part1 inputLines)
+  putStrLn $ "Part 2: " ++ show (part2 inputLines)
+
+main :: IO ()
+main = do
+  args <- getArgs
+  case args of
+    [] -> error "Please provide the day as an argument."
+    ["debug"] -> do
+      print "Debug mode not implemented."
+    _ -> do
+      let (day, inputFile) = parseArgs (head args)
+      contents <- readFile inputFile
+      let inputLines = lines contents
+      printSolution day inputLines
