@@ -59,6 +59,9 @@ library
 
     -- Modules exported by the library.
     exposed-modules:  AoC.Day01,
+                      AoC.Day02, 
+                      AoC.Day03, 
+                      Utils.Grid,
                       Utils.Utils
 
     -- Modules included in this library but not exported.

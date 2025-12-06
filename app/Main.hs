@@ -1,6 +1,8 @@
 module Main where
 
 import qualified AoC.Day01
+import qualified AoC.Day02
+import qualified AoC.Day03
 import System.Environment (getArgs)
 import qualified Utils.Utils as Utils
 
@@ -15,6 +17,8 @@ parseArgs day = (day, "input/" ++ parseDay "" day)
 
 getDaySolution :: String -> Utils.Solution
 getDaySolution "01" = AoC.Day01.solution
+getDaySolution "02" = AoC.Day02.solution
+getDaySolution "03" = AoC.Day03.solution
 getDaySolution _ = error "No solution-implementation found for the given day."
 
 printSolution :: String -> [String] -> IO ()
